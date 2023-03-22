@@ -1,210 +1,102 @@
-# JHipster Online
-
-[![Azure DevOps Build Status][azure-devops-image]][azure-devops-url-main]  [![Build Status][travis-image]][travis-url]  [![Docker Pulls](https://img.shields.io/docker/pulls/jhipster/jhipster-online.svg)](https://hub.docker.com/r/jhipster/jhipster-online/)
-
-JHipster Online is a Web application that allows to generate [JHipster applications](https://www.jhipster.tech/)
-without installing JHipster on your machine.
-
-This is an Open Source project ([Apache 2 license](https://github.com/jhipster/jhipster-online/blob/master/LICENSE.txt))
-that powers the [https://start.jhipster.tech/](https://start.jhipster.tech/) website.
-
-You can use [https://start.jhipster.tech/](https://start.jhipster.tech/) for free, but if you find a bug or need a specific
-feature, you are welcome to contribute to the project. You can also choose to clone or fork the project, and have your own version
-that is hosted within your company.
-
-## Quick start guide
-
-JHipster Online is a JHipster application, so you can follow the [JHipster documentation](https://www.jhipster.tech/) to
-learn how to configure and set up JHipster Online.
-
-This quick start guide uses the default configuration that comes with JHipster Online: please read
-the next section for details on configuring the application.
-
-- Install and run the front-end:
-
-
-    yarn install && yarn start
-
-
-- Run the database:
-
-
-    docker-compose -f src/main/docker/mysql.yml up -d
-
-
-- Run the back-end:
-
-
-    ./mvnw
-
-
-## Specific configuration
-
-This section covers what is specific to JHipster Online over a normal JHipster application.
-
-For standard JHipster configuration, the [JHipster common application properties](https://www.jhipster.tech/common-application-properties/)
-will probably be very useful.
-
-### JHipster installation and execution
-
-JHipster Online generates a JHipster application by running the `jhipster` command line. In order for that
-command line to work, you need to have JHipster installed on your machine.
-
-We recommend you use the "Yarn installation" from the official [JHipster installation documentation](https://www.jhipster.tech/installation/).
-
-If you need more configuration options for running the JHipster command, you can modify:
+##Inspiration
+Smart contracts are used in a variety of applications, from supply chain management to decentralized finance. However, developing smart contracts can be challenging, and it requires specialized knowledge of blockchain technologies and programming languages.
+At the same time, cloud-native applications are becoming increasingly popular due to their ability to provide scalable and flexible architectures that can run in cloud environments. These applications typically use microservices, containerization, and DevOps practices to enable faster development and deployment cycles.
+The intersection between smart contracts and cloud-native applications is an area of research that has the potential to provide several benefits, such as increased automation and security, reduced costs, and enhanced scalability.
+**Iconizer** is one possible solution to leverage these benefits that can automatically generate both smart contracts and cloud-native code from a high-level specification or input. Iconizer could use a combination of templates and rules to generate code that is optimized for the blockchain and cloud environments.
  
-- the location of the `jhipster` command
-- the timeout value for that command (the default is 120 seconds - please note that on our production server a generation usually
- takes 5 to 6 seconds)
-- the temporary folder in which the application will be generated (`/tmp` by default)
+By generating code automatically, developers could reduce the time and effort required to develop smart contracts and cloud-native applications. This could enable more organizations to adopt these technologies and develop new applications that leverage the benefits of both blockchain and cloud-native architectures.
+ 
+In addition, Iconizer could also help to address the skills gap that currently exists in the blockchain and cloud-native development communities. By automating the code generation process, developers could focus on understanding the business requirements and designing the high-level specifications, while Iconizer handles the details of generating the code.
+##What it does
+Iconizer is a software tool that automates the process of creating smart contracts and cloud-native code. It takes as input a high-level specification or description of the desired behavior of a smart contract or a cloud-native application, and it outputs the corresponding code that can be executed on a blockchain or deployed to a cloud environment.
+ 
+Iconizer uses a combination of pre-built templates and rules to generate the code. These templates and rules are based on best practices and design patterns for smart contracts and cloud-native applications. They are designed to produce code that is optimized for the blockchain and cloud environments, and that adheres to industry standards and best practices.
+ 
+Iconizer supports a range of programming languages, frameworks, and blockchain platforms, enabling developers to choose the tools that are best suited to their needs. It can generate code for a variety of use cases, such as supply chain management, decentralized finance, and identity management.
+ 
+Iconizer can also help to improve the quality of the generated code by identifying and fixing common coding errors and security vulnerabilities. This can help to reduce the risk of smart contract hacks and other security issues.
+ 
+Overall, Iconizer simplifies the development process by reducing the time and effort required to create smart contracts and cloud-native applications. It enables developers to focus on the high-level design of the application, rather than worrying about the low-level details of the code. Additionally, it can help to address the skills gap in the blockchain and cloud-native development communities by making it easier for developers to get started with these technologies.
 
-Those are customized using the Spring Boot `application-*.yml` files as usual, for example:
+How We Built it
 
-```
-application:
-    jhipster-cmd:
-        cmd: /usr/local/bin/jhipster
-        timeout: 60
-    tmp-folder: /tmp
-```
+To build Iconizer, we used a combination of open-source technologies and proprietary algorithms. Our team included experts in blockchain development, cloud-native architecture, and machine learning.
 
-### Database configuration
+The first step was to define the **input and output formats for Iconizer**. We decided to use a simple YAML format for the high-level specification, which would include the desired behavior of the smart contract or cloud-native application. The output would be generated code in a variety of programming languages and frameworks.
+ 
+Next, we developed a set of **pre-built templates** and rules for generating code for common use cases, such as supply chain management and decentralized finance. These templates and rules were based on best practices and design patterns for smart contracts and cloud-native applications.
+ 
+To implement Iconizer, we used a combination of Java and Node.js. We used Angular for the front-end web interface.
+ 
+We also integrated Iconizer with a Icon of blockchain. This enabled developers to choose the platform that was best suited to their needs.
+ 
+To ensure the quality of the generated code, we included automated testing and code review processes. We also conducted extensive user testing and feedback sessions to refine the user interface and improve the user experience.
+ 
+Overall, building Iconizer was a complex and challenging process that required a deep understanding of blockchain development, cloud-native architecture, and machine learning. However, by leveraging open-source technologies and proprietary algorithms, we were able to create a powerful tool that simplifies the development process and enables developers to create high-quality smart contracts and cloud-native applications with ease.
 
-JHipster Online works with a MySQL database, that is configured in the usual `application-*.yml` Spring Boot configuration
-files, using the standard `spring.datasource` keys.
+**Iconizer Modules**
 
-### Security
+**Input Module**: This module is responsible for taking the input from the user in a simple YAML format. The YAML format includes a high-level specification of the desired behavior of the smart contract or cloud-native application. This module ensures that the input format is correct and complete before passing it on to the next module.
+ 
+**Rule Engine**: This module contains a set of pre-built templates and rules for generating code for common use cases. The rule engine uses these templates and rules to generate code for the specified use case. It also contains machine learning algorithms that analyze a large corpus of existing smart contract and cloud-native code to identify common patterns and best practices. The rule engine is responsible for ensuring that the generated code adheres to industry standards and best practices.
+ 
+**Code Generator**: This module is responsible for generating code based on the input specification and the pre-built templates and rules. It uses a combination of the rule engine and proprietary algorithms to generate code that is optimized for the blockchain and cloud environments. Iconizer supports a range of programming languages and frameworks, enabling developers to choose the tools that are best suited to their needs.
+ 
+**Quality Control Module**: This module is responsible for ensuring the quality of the generated code. It includes automated testing and code review processes that help to identify and fix common coding errors and security vulnerabilities. The quality control module also conducts extensive user testing and feedback sessions to refine the user interface and improve the user experience.
+ 
+**Integration Module**: This module is responsible for integrating Iconizer with a range of blockchain platforms and cloud environments. It enables developers to choose the platform that is best suited to their needs and provides seamless integration with their existing tools and workflows.
+ 
+**Output Module**: This module is responsible for delivering the generated code to the user. It includes a user-friendly web interface that allows the user to view and download the generated code in the desired programming language and framework. The output module also provides detailed documentation and tutorials to help the user get started with the generated code.
 
-JHipster Online uses JWT to secure the application. For a production application, it is therefore **mandatory** that:
+##Accomplishments that we're proud of
+**Simplifying Development*: Our solution has simplified the development process for smart contracts and cloud-native applications. Developers can now specify the desired behavior of their application in a simple YAML format, and Iconizer takes care of the rest. This has significantly reduced the time and effort required to create high-quality smart contracts and cloud-native applications.
+ 
+**Industry Standards and Best Practices**: We're proud that our solution adheres to industry standards and best practices for smart contract and cloud-native development. Our rule engine is based on best practices and design patterns for smart contracts and cloud-native applications, and our machine learning algorithms have identified common patterns and best practices in existing code. This has resulted in code that is optimized for the blockchain and cloud environments and is secure and scalable.
+ 
+**Multi-Platform Support**: Our solution supports a range of blockchain platforms and cloud environments, enabling developers to choose the platform that is best suited to their needs. This has made our solution more accessible to developers and has helped to accelerate the adoption of smart contracts and cloud-native applications.
+ 
+**Quality Control**: We're proud of our quality control module, which includes automated testing and code review processes that help to identify and fix common coding errors and security vulnerabilities. This has resulted in code that is of high quality and is secure and scalable.
+ 
+**User-Friendly Interface**: We've designed our solution with the user in mind. Our output module includes a user-friendly web interface that allows the user to view and download the generated code in the desired programming language and framework. We've also provided detailed documentation and tutorials to help the user get started with the generated code.
+ 
+We're proud of our accomplishments in creating a powerful tool that simplifies the development process and enables developers to create high-quality smart contracts and cloud-native applications with ease. Our solution adheres to industry standards and best practices, supports a range of platforms, includes quality control processes, and is user-friendly. We believe that our solution has the potential to revolutionize the way that smart contracts and cloud-native applications are developed and deployed.
 
-- The `jhipster.security.authentication.jwt.key` is configured, and that key is stored securely (**not** commited in your application's Git repository).
-We recommend to configure it as an environnement variable on your server, or in a specific Spring Boot `application.yml` file that is stored
-in your application's folder on your production server (which is our configuration on the official [JHipster Online website](https://start.jhipster.tech/)).
-- The application is only available through HTTPS. You can configure it using Spring Boot (please read the comments in the `application-prod.yml` file), or
-using an Apache 2 HTTP server with Let's Encrypt on front of your application (which is our configuration on the official [JHipster Online website](https://start.jhipster.tech/)).
+##Challenges we ran into
 
-### Mail
+**Complexity of the Blockchain and Cloud Environments**: The blockchain and cloud environments are complex and constantly evolving. We faced challenges in ensuring that our solution was optimized for the latest developments in these environments. We overcame this challenge by conducting extensive research and collaborating with experts in the field.
+ 
+**Integration with Multiple Platforms**: Our solution needed to integrate with multiple blockchain platforms and cloud environments. This presented a challenge in ensuring that our code generator was compatible with all platforms and environments. We overcame this challenge by designing our solution to be modular and flexible, enabling us to quickly adapt to changes in the platforms and environments.
+ 
+**Security and Scalability**: Security and scalability are critical factors in smart contract and cloud-native development. We faced challenges in ensuring that our solution generated code that was secure and scalable. We overcame this challenge by implementing automated testing and code review processes that identified and fixed common coding errors and security vulnerabilities.
+ 
+**User Experience**: We wanted our solution to be accessible to developers with varying levels of experience. This presented a challenge in designing a user interface that was user-friendly and intuitive. We overcame this challenge by conducting extensive user testing and feedback sessions to refine the user interface and improve the user experience.
+ 
+**Resource Constraints**: As a small team, we faced resource constraints in terms of time, budget, and personnel. We overcame this challenge by prioritizing key features and collaborating effectively to ensure that our solution met the needs of our target users.
+ 
 
-E-mails are used to validate users' e-mail addresses or to send "forgotten password" e-mails. They are disabled by default,
-but it might be a good idea to configure them once the application is in production.
-
-To configure e-mail sending, you need to configure the `jhipster.mail` keys (see [JHipster common application properties](https://www.jhipster.tech/common-application-properties/)),
-and the Spring Boot standard `spring.mail` keys.
-
-When running the app with the `dev` profile, make sure to start the development mail server with:
-```
-docker-compose -f src/main/docker/mailserver.yml up -d
-```
-
-You can view the mails sent by JHipster with the MailHog UI at [http://localhost:8025](http://localhost:8025).
-
-### GitHub configuration
-
-GitHub is configured using the `application.github` keys in the `application-*.yml` configuration files.
-
-JHipster Online can work on the public GitHub instance on [https://github.com](https://github.com) as well
-as any private instance of GitHub Enterprise that is configured inside your company.
-
-JHipster Online has to be configured as an "OAuth App": create a `jhipster` organization,
-and go to that organization's "Settings > Developer Settings > OAuth Apps" to create a new "OAuth App" with
-the required credentials. This will allow JHipster Online to create applications and pull requests on your
-behalf. JHipster Online uses `https://your-jhipster-online-url/api/github/callback` as callback endpoint.
-
-JHipster Online also needs to have a specific "JHipster Bot" user configured, like the  
-[https://github.com/jhipster-bot](https://github.com/jhipster-bot) used by the official [JHipster Online website](https://start.jhipster.tech/).
-In order for JHipster Online to use that bot, it will need its OAuth token: log in as the "JHipster Bot" user, and go to
-"Settings > Developer Settings > Personal access tokens" and generate a new token.
-
-Here is the final configuration, that should be set up inside the `application-dev.yml` file for
-development, and inside the `application-prod.yml` file for production.
-
-```
-application:
-    github:
-        host: https://github.com # The GitHub to connect to (by default: the public GitHub instance)
-        client-id: XXX # The OAuth Client ID of the application on GitHub
-        client-secret: XXX # The OAuth Client secret of the application on GitHub
-        jhipster-bot-oauth-token: XXX # The "personal access token" of the JHipster Bot
-```
-
-### GitLab configuration
-
-Similarly to GitHub, your GitLab configuration must be placed in your `application-*.yml` using the `application.gitlab`
-keys.
-
-JHipster Online can work on the public GitLab instance on [https://gitlab.com](https://gitlab.com) as well
-as any private instance of GitLab that is configured inside your company.
-
-JHipster Online needs to have a specific "JHipster Bot" user configured: create that user (if you have your own private instance, you can call it
-`jhipster-bot`, otherwise choose the name you like), and log in using that user.
-
-Once logged in, the required API credentials can be created by going to "Settings > Applications > Add new application".
-Create a new application:
-
- - Its name is `jhipster`
- - The redirect URI is `https://your-jhipster-online-url/api/gitlab/callback`
- - It has the `api` and `read_user` scopes
-
-Save that new application and store safely the `Application Id` and `Secret` values, so you can use them to configure
-the `application-*.yml` files.
-
-Here is the final configuration, that should be set up inside the `application-dev.yml` file for
-development, and inside the `application-prod.yml` file for production.
-
-```
-application:
-    gitlab:
-        host: https://gitlab.com # The GitLab to connect to. The main public GitLab instance is default here.
-        client-id: XXX # Your GitLab application Id
-        client-secret: XXX # Your GitLab application secret
-        redirect-uri: XXX   # The URI where the user will be redirected after GitLab authentication. This URI
-                            # must be registered in you GitLab application callback URLs
-```
-
-## Building for production
-
-To generate a production build, like any normal JHipster application, please run:
-
-    ./mvnw -Pprod clean package
-
-### Using Docker
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
-
-    ./mvnw package -Pprod dockerfile:build
-
-Then run:
-
-    docker-compose -f src/main/docker/app.yml up -d
-
-## Building for GCP environment (include sql proxy)
-
-    ./mvnw clean package -Pgcp
-
-
-## Help and contribution to the project
-
-Please note that this project is part of the [JHipster organization](https://github.com/jhipster) and it follows the rules
-of the [JHipster project](https://github.com/jhipster/generator-jhipster).
-
-### If you have an issue, a bug or a feature request
-
-Please follow our [contribution guide](https://github.com/jhipster/jhipster-online/blob/master/CONTRIBUTING.md).
-
-### If you have a question or need help
-
-You should [post it on Stack Overflow using the "jhipster" tag](https://stackoverflow.com/questions/tagged/jhipster?sort=newest).
-
-### Code of conduct
-
-We have the same code of conduct as the main JHipster project:
-[JHipster code of conduct](https://github.com/jhipster/jhipster-online/blob/master/CODE_OF_CONDUCT.md).
-
-[azure-devops-image]: https://dev.azure.com/jhipster/jhipster-online/_apis/build/status/jhipster.jhipster-online?branchName=master
-[azure-devops-url-main]: https://dev.azure.com/jhipster/jhipster-online/_build
-
-[travis-image]: https://travis-ci.org/jhipster/jhipster-online.svg?branch=master
-[travis-url]: https://travis-ci.org/jhipster/jhipster-online
-#   i c o n i z e r  
- 
+##What we learned
+ 
+Importance of Collaboration: We learned that effective collaboration is essential for the success of any software development project, especially one as complex as a code generator for smart contracts and cloud-native code. By collaborating effectively, we were able to overcome the challenges we faced and create a powerful tool that meets the needs of our target users.
+ 
+Need for Flexibility: We learned that the blockchain and cloud environments are constantly evolving, and it's essential to design our solution to be flexible and adaptable to changes in these environments. By designing our solution to be modular and flexible, we were able to quickly adapt to changes in the platforms and environments.
+ 
+Importance of Security and Quality Control: We learned that security and quality control are critical factors in smart contract and cloud-native development. By implementing automated testing and code review processes, we were able to identify and fix common coding errors and security vulnerabilities, resulting in code that is of high quality and is secure and scalable.
+ 
+User-Centric Design: We learned that designing our solution with the user in mind is essential for creating a user-friendly and intuitive tool. By conducting extensive user testing and feedback sessions, we were able to refine the user interface and improve the user experience.
+ 
+Importance of Research: We learned that conducting extensive research is essential for creating a solution that meets the needs of our target users. By conducting research and collaborating with experts in the field, we were able to create a solution that adheres to industry standards and best practices and is optimized for the latest developments in the blockchain and cloud environments.
+ 
+We learned that effective collaboration, flexibility, security and quality control, user-centric design, and research are essential for the success of any software development project, especially one as complex as a code generator for smart contracts and cloud-native code. We believe that the lessons we learned during the development of our solution will be invaluable in future projects and will help us to create even more powerful tools for the blockchain and cloud environments.
+##What's next for Iconizer
+ 
+Integration with More Platforms: Our solution currently supports several blockchain platforms and cloud environments. In the future, we plan to expand our support to include even more platforms and environments, making our tool even more versatile and accessible to developers.
+ 
+AI and Machine Learning Integration: We are exploring the integration of AI and machine learning into our code generator. This would enable our tool to learn from the code it generates and provide even more optimized and efficient code in the future.
+ 
+Support for More Programming Languages: Our solution currently supports several programming languages, but we plan to expand our support to include even more languages, making our tool even more accessible to a wider range of developers.
+ 
+Integration with Decentralized Finance (DeFi) Platforms: We plan to integrate our code generator with decentralized finance platforms, allowing developers to quickly and easily create smart contracts and applications for the DeFi space.
+ 
+Community Collaboration: We plan to collaborate with the developer community to gather feedback and suggestions for improving our solution. This will enable us to continuously improve and refine our tool, making it even more powerful and user-friendly.
+ 
+Overall, we believe that the future of our solution is bright, and we are excited to continue developing and refining our tool to meet the needs of developers in the blockchain and cloud-native spaces. With the integration of AI and machine learning, support for more platforms and languages, integration with DeFi platforms, and collaboration with the developer community, we believe that our tool will become even more powerful and indispensable in the years to come.
