@@ -1,0 +1,127 @@
+application {
+      config {
+        baseName  $GatewayName,	
+        applicationType gateway,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        cacheProvider hazelcast,
+        buildTool maven,
+		clientFramework angularX,
+        testFrameworks [protractor],
+        serverPort $GatewayPort
+        
+      }
+      entities *
+    }
+
+    application {
+      config {
+        baseName $MSApp1,
+        applicationType microservice,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        buildTool maven,
+        serverPort $MSApp1Port
+      }
+      entities Client,BankBranch, Loan
+    }
+	
+	 application {
+      config {
+        baseName $MSApp2,
+        applicationType microservice,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        buildTool maven,
+        serverPort $MSApp2Port
+      }
+      entities Message
+    }
+
+
+
+
+
+/** Loan App Schema */
+entity Client {
+	id String,
+    fullName String required,
+    residentialAddress String required,
+    phone String required,
+    email String,
+    dateOfBirth Instant,
+    state String,
+    gender String,
+    maritalStatus String,
+    employerName String,
+    employerAddress String,
+    occupation String
+}
+
+entity BankBranch {
+	id String,
+    BranchName String required,
+    Address String required,
+    ContactNumber Double required,
+    ManagerName String
+     
+}
+
+entity Message {
+	id String,
+    sender String,
+    reciever String,
+    subject String,
+    body String,
+    messageDate Instant
+}
+entity Loan {
+	id String required,
+    loanAmount Double required,
+    loanPeriod Integer required,
+    loanType String required,
+    loanCategory String,
+    loanOwner String,
+    paybackAmount String,
+    loanDate Instant,
+    paidAmount Double,
+    approvalStatus String,
+    clientStatus String,
+    paidStatus String
+}
+
+
+
+// defining multiple OneToMany relationships with comments
+
+relationship ManyToOne {
+	Client{bank} to BankBranch,
+    Loan{client} to Client,
+    
+}
+
+
+
+
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
+
+// Set pagination options
+paginate Client,BankBranch, Loan with infinite-scroll
+paginate Message with pagination
+service Client,BankBranch, Loan  with serviceClass
+microservice Client,BankBranch, Loan  with $MSApp1
+microservice Message with $MSApp2

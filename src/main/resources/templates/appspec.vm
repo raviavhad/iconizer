@@ -1,0 +1,27 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /usr/iconizer/$Projectname
+    overwrite: true
+permissions:
+  - object: /usr/iconizer/$Projectname/aws-cicd
+    pattern: '*.sh'
+    owner: root
+    group: root
+    mode: 755
+    type:
+      - file
+hooks:
+  BeforeInstall:
+    - location: aws-cicd/before_install.sh
+      timeout: 900
+  AfterInstall:
+    - location: aws-cicd/after_install.sh
+      timeout: 3600
+  ApplicationStart:
+    - location: aws-cicd/app_start.sh
+      timeout: 1800
+  ApplicationStop:
+    - location: aws-cicd/app_stop.sh
+      timeout: 900

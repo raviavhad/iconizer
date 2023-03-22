@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# This script is executed before copying the source
+#sudo apt-get update -y
+#sudo apt-get install ruby -y
+#sudo apt install python3-pip -Y
+#pip3 install --upgrade pip -Y
+#sudo apt-get install awscli
+#sudo apt install maven
+#sudo apt-get update -y
+#sudo apt-get install curl
+#curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+#sudo apt-get install nodejs
+
+
+
+export app_root=/usr/iconizer/$Projectname
+if [ -d "$app_root" ];then
+    rm -rf /usr/iconizer/$Projectname
+    mkdir -p /usr/iconizer/$Projectname
+else
+    mkdir -p /usr/iconizer/$Projectname
+fi
+

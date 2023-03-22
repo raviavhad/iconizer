@@ -1,0 +1,27 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Creating workspace for AD Project",
+    "Resources": {
+        "Workspace": {
+
+  "Type" : "AWS::WorkSpaces::Workspace",
+  "Properties" : {
+      "BundleId" : "wsb-8vbljg4r6",
+      "DirectoryId" : "d-90677b53eb",
+      "RootVolumeEncryptionEnabled" : false,
+      "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Workspace Developer Machine"
+                    }
+                ],
+      "UserName" : "ravhad",
+      "UserVolumeEncryptionEnabled" : false,
+      "WorkspaceProperties" : {
+		  "RunningModeAutoStopTimeoutInMinutes" : 60,
+		  "RunningMode" : "AUTO_STOP"
+	  }
+    }
+}
+}
+}

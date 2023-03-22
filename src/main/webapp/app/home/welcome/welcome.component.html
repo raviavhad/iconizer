@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-2">
+        <span class="hipster img-fluid img-rounded"></span>
+    </div>
+    <div class="col-md-10">
+        <h1 class="display-4">Welcome to Iconizer</h1>
+        <p>
+        Iconizer can be used for business information systems, often for application templates with out of the box cutting edge frameworks and productivity enhancing toolsIconizer can be used for business information systems, often for application templates with out of the box cutting edge frameworks and productivity enhancing tools
+        </p>
+        <!-- <b>
+            JHipster Online generates <a href="https://www.jhipster.tech/" target="_blank" rel="noopener" data-translate="home.link.homepage">JHipster</a> applications, with no installation required!
+        </b> -->
+    </div>
+</div>
+<div [ngSwitch]="isAuthenticated()">
+    <hr/>
+    <div *ngSwitchCase="true">
+        <!-- <h3 *ngIf="gitConfig.gitlabAvailable || gitConfig.githubAvailable">
+            Using Iconizer with
+            <ng-container *ngIf="gitConfig.githubAvailable && gitConfig.gitlabAvailable">GitHub or GitLab</ng-container>
+            <ng-container *ngIf="gitConfig.githubAvailable && !gitConfig.gitlabAvailable">GitHub</ng-container>
+            <ng-container *ngIf="!gitConfig.githubAvailable && gitConfig.gitlabAvailable">GitLab</ng-container>
+            to get the full experience
+        </h3> -->
+       <!--  <ul *ngIf="gitConfig.gitlabAvailable || gitConfig.githubAvailable">
+            <li>
+                <a routerLink="/git">
+                    Step 1: Configure JHipster Online to access your
+                    <ng-container *ngIf="gitConfig.githubAvailable && gitConfig.gitlabAvailable">GitHub or GitLab</ng-container>
+                    <ng-container *ngIf="gitConfig.githubAvailable && !gitConfig.gitlabAvailable">GitHub</ng-container>
+                    <ng-container *ngIf="!gitConfig.githubAvailable && gitConfig.gitlabAvailable">GitLab</ng-container>
+                    account
+                </a>
+            </li>
+            <li>
+                <a routerLink="/generate-application">
+                    Step 2: Use JHipster Online to generate an application on
+                    <ng-container *ngIf="gitConfig.githubAvailable && gitConfig.gitlabAvailable">GitHub or GitLab</ng-container>
+                    <ng-container *ngIf="gitConfig.githubAvailable && !gitConfig.gitlabAvailable">GitHub</ng-container>
+                    <ng-container *ngIf="!gitConfig.githubAvailable && gitConfig.gitlabAvailable">GitLab</ng-container>
+                </a>
+            </li>
+            <li><a routerLink="/design-entities">Step 3: Use the JHipster Studio to add entities to your application</a></li>
+            <li><a routerLink="/ci-cd">Step 4: Set up continuous integration for your application</a></li>
+        </ul> -->
+        <h3>Using Iconizer to simply download a zipped application</h3>
+        <ul>
+            <li><a routerLink="/generate-application">Option 1: Use Iconizer to generate an application</a></li>
+            <li><a routerLink="/generate-template-application">Option 2: Use Iconizer to generate an application from template</a></li>
+            <!-- <li><a routerLink="/generate-template-application">Option 2: Use Iconizer to generate an application from template</a></li> -->
+        </ul>
+       <!--  <h3>Next steps</h3>
+        <b>
+            Once your application is generated, the following links will be useful:
+        </b>
+        <ul>
+            <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener" data-translate="home.link.homepage">JHipster homepage</a></li>
+            <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener" data-translate="home.link.stackoverflow">JHipster on Stack Overflow</a></li>
+            <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener" data-translate="home.link.bugtracker">JHipster bug tracker</a></li>
+            <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener" data-translate="home.link.chat">JHipster public chat room</a></li>
+            <li><a href="https://twitter.com/jhipster" target="_blank" rel="noopener" data-translate="home.link.follow">follow @jhipster on Twitter</a></li>
+        </ul>
+        <b>
+            If you like JHipster, don't forget to give us a star on <a href="https://github.com/jhipster/generator-jhipster" target="_blank">GitHub</a>!
+        </b> -->
+    </div>
+</div>

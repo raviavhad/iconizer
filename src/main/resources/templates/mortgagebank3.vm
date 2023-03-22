@@ -1,0 +1,117 @@
+application {
+      config {
+        baseName  $GatewayName,	
+        applicationType gateway,
+		packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        cacheProvider hazelcast,
+        buildTool maven,
+		clientFramework angularX,
+        testFrameworks [protractor],
+        serverPort $GatewayPort
+      }
+      entities *
+    }
+
+    application {
+      config {
+        baseName $MSApp1,
+        applicationType microservice,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        buildTool maven,
+        serverPort $MSApp1Port
+      }
+      entities MortgageLoan, LoanOrCredit, RepaymentSpecification, FinanicalProduct
+    }
+	
+	 application {
+      config {
+        baseName $MSApp2,
+        applicationType microservice,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        buildTool maven,
+        serverPort $MSApp2Port
+      }
+      entities MortgageService
+    }
+
+
+entity MortgageLoan {
+	domiciledMortgage	String, 
+	loanMortgageMandateAmount Double
+}
+
+entity RepaymentSpecification {
+    downPayment	Double,
+    earlyPrepaymentPenalty	Double,
+    loanPaymentAmount Double,
+    loanPaymentFrequency Double,
+    numberOfLoanPayments Double
+}
+entity LoanOrCredit {
+	amount	Double,			
+    currency String,		
+    gracePeriod	Long,
+    
+    loanTerm Long,
+    loanType String,
+    recourseLoan String, 
+    renegotiableLoan Boolean,
+    requiredCollateral String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity FinanicalProduct {
+	annualPercentageRate Float,			
+	feesAndCommissionsSpecification	String,		
+    interestRate Float,			
+	quantitativeValue Double	
+
+}
+
+entity MortgageService {
+	aggregateRating	Float,
+	areaServed String, 			
+	audience String,
+	availableChannel String,
+	award String, 
+    brand String,	
+	broker String,			
+    category String,			
+	hasOfferCatalog	String,
+	hoursAvailable Integer,
+	offers	String,		
+    provider String,					
+    providerMobility String,
+    review String,
+    serviceOutput String,		
+    serviceType	String,	
+    termsOfService String	
+
+}
+
+relationship OneToOne {
+	LoanOrCredit to RepaymentSpecification,
+    LoanOrCredit to FinanicalProduct,
+    LoanOrCredit to MortgageLoan
+    
+}
+
+// Set pagination options
+paginate RepaymentSpecification, FinanicalProduct, MortgageLoan with infinite-scroll
+paginate LoanOrCredit, MortgageService with pagination
+
+microservice RepaymentSpecification, FinanicalProduct,LoanOrCredit, MortgageLoan with $MSApp2
+microservice MortgageService with $MSApp2
+
+service * with serviceClass
+

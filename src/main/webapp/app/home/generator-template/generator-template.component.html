@@ -1,0 +1,88 @@
+<form #generatorForm="ngForm">
+
+    <h2><fa-icon [icon]="'rocket'"></fa-icon>&nbsp;<span>Application generation</span></h2>
+
+    <div class="container">
+        <h4>Project configuration</h4>
+        <hr />
+        <jhi-git-provider-alert [tab]="'generate-template-application'"></jhi-git-provider-alert>
+        <jhi-git-provider (sharedData)="updateSharedData($event)" [simpleMode]="true"></jhi-git-provider>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="baseName">Application name</label>
+                    <input type="text" class="form-control" id="baseName" [(ngModel)]="model.baseName" name="baseName"
+                           #baseName="ngModel" required pattern="^([a-zA-Z0-9]*)$">
+                    <div *ngIf="baseName.errors" class="alert alert-danger">Your application name cannot contain special characters or a blank space.</div>
+                </div>
+            </div>
+        </div>
+       
+        <hr />
+        <h4>Application type</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="applicationType">Which type of application would you like to create?</label>
+                    <select id="applicationType" [(ngModel)]="model.applicationType" name="applicationType"
+                            class="form-control" #applicationType="ngModel"
+                            (change)="changeApplicationType()">
+                        <option selected="selected" value="mortgage1">App for NFT Creation</option>
+                        <option value="cryptoTransfer">App for Cyrpto Token Transfer</option>
+                        <option value="tokenCreation">App for Token Creation</option>
+                        <option value="voting">App For Voting</option>
+       
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+          <hr />
+        <h4>Package Name</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="packageName">What is your default Java package name?</label>
+                    <input type="text" class="form-control" id="packageName" [(ngModel)]="model.packageName"
+                           name="packageName" #packageName="ngModel"
+                           required pattern="^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$"
+                           (change)="changePackageName()">
+                    <div *ngIf="packageName.errors" class="alert alert-danger">The package name you have provided is not a valid Java package name.</div>
+                </div>
+            </div>
+        </div>
+        		 
+       
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center">
+                    <p></p>
+                    <div [ngSwitch]="!submitted">
+                        <div *ngSwitchCase="true">
+                            <button type="submit" class="btn btn-primary" [disabled]="!generatorForm.form.valid" (click)="onSubmit()" *ngIf="selectedGitProvider">
+                                Generate on {{selectedGitProvider}}
+                            </button>
+                            <button type="submit" class="btn btn-info" [disabled]="!generatorForm.form.valid" (click)="onSubmitDownload()">
+                                Download as Zip file
+                            </button>
+                            <button type="button" class="btn btn-dark" (click)="newGenerator()">Reset</button>
+                        </div>
+                        <div *ngSwitchCase="false">
+                            <fa-icon [icon]="'sync'" [spin]="true"></fa-icon>
+                            <button type="submit" class="btn btn-primary" [disabled]="true" *ngIf="selectedGitProvider">
+                                Generate on {{selectedGitProvider}}
+                            </button>
+                            <button type="submit" class="btn btn-info" [disabled]="true">
+                                Download as Zip file
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="!generatorForm.form.valid" class="alert alert-danger">The "Generate" button is disabled because there are errors in the form.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

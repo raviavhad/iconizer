@@ -1,0 +1,20 @@
+version: 0.2
+phases:
+  pre_build:
+    run-as: root
+    commands:
+      - $(aws ecr get-login --region $Region --no-include-email)
+  build:
+    run-as: root
+    commands:
+      - chmod 700 mvnw
+      - ./mvnw package -Pprod verify jib:dockerBuild
+      - docker image tag $ProjectName "${ProjectECRRepo}:latest"
+  post_build:
+    run-as: root
+    commands:
+      - docker push "$ProjectECRRepo:latest"
+artifacts:
+  files:
+    - cfn/service.yml
+  discard-paths: true

@@ -1,0 +1,148 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Creating code pipeline for AD Project",
+    "Resources": {
+        "EC2Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": "ami-08667f4c9cf17f6bb",
+                "InstanceType": "t2.micro",
+                "KeyName": "ohio-april20",
+				"SecurityGroupIds" : ["sg-019ffd877cbee08c1"],
+				"SubnetId" : "subnet-0c7e58da9f2a8d443",
+				"IamInstanceProfile" : "EC2-S3ReadOnly-AD",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "AD-CICD-Project1-Server"
+                    },
+                    {
+                        "Key": "Group",
+                        "Value": "ADCICD"
+                    }
+                ]
+            }
+        },
+        "DeploymentConfig": {
+            "Type": "AWS::CodeDeploy::DeploymentConfig",
+            "Properties": {
+                "DeploymentConfigName": "ADDeploymentConfig",
+                "MinimumHealthyHosts": {
+                    "Type": "HOST_COUNT",
+                    "Value": 0
+                }
+            }
+        },
+        "ADCodeCommitRepo": {
+            "Type": "AWS::CodeCommit::Repository",
+            "Properties": {
+                "RepositoryDescription": "CodeComitRepo created for CodePipeline",
+                "RepositoryName": "CICDProject1Repo",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "ADCodeCommitRepo"
+                    }
+                ]
+            }
+        },
+        "ADCodeDeployApp": {
+            "Type": "AWS::CodeDeploy::Application",
+            "Properties": {
+                "ApplicationName": "CICDProject1App",
+                "ComputePlatform": "Server"
+            }
+        },
+        "ADDeploymentGroup": {
+            "Type": "AWS::CodeDeploy::DeploymentGroup",
+            "Properties": {
+                "ApplicationName": {
+				"Ref" : "ADCodeDeployApp"},
+                "DeploymentConfigName": {
+				"Ref" : "DeploymentConfig"},
+                "DeploymentGroupName": "CICDProject1DG",
+                "DeploymentStyle": {
+                    "DeploymentOption": "WITHOUT_TRAFFIC_CONTROL",
+                    "DeploymentType": "IN_PLACE"
+                },
+                "Ec2TagFilters": [
+                    {
+                        "Key": "Name",
+                        "Type": "KEY_AND_VALUE",
+                        "Value": "AD-CICD-Project1-Server"
+                    }
+                ],
+                "ServiceRoleArn": "arn:aws:iam::659418003263:role/CodeDeployServiceRole"
+            }
+        },
+		"ADCodePipeline":{
+		  "Type" : "AWS::CodePipeline::Pipeline",
+		  "Properties" : {
+			  "ArtifactStore" : {
+			  	  "Location" : "iconizer",
+				  "Type" : "S3"
+
+			  },		  
+			
+			  "Name" : "ADCICDProject1CodePipeline",
+			  "RestartExecutionOnUpdate" : true,
+			  "RoleArn" : "arn:aws:iam::659418003263:role/service-role/AWSCodePipelineServiceRole-us-east-2-ADCICDProject",
+			  "Stages" : [ 
+			  {
+			  "Actions" : [ {
+			  
+				  "ActionTypeId" : {
+					  "Category" : "Source",
+					  "Owner" : "AWS",
+					  "Provider" : "CodeCommit",
+					  "Version" : "1"
+					},
+					"Configuration": {
+						"RepositoryName": "CICDProject1Repo",
+						"BranchName": "master",
+						"PollForSourceChanges": "true"
+					},
+				  
+				  "Name" : "ADProject1SourceAction",
+				   "OutputArtifacts" : [ {"Name" : "AppSourceCode"}],
+				  "Region" : "us-east-2",
+				  "RoleArn" : "arn:aws:iam::659418003263:role/service-role/AWSCodePipelineServiceRole-us-east-2-ADCICDProject",
+				  "RunOrder" : 1
+				
+			  } ],
+			  "Name" : "SourceStage"
+			  }, {
+			  "Actions" : [ {
+			  
+				  "ActionTypeId" : {
+					  "Category" : "Deploy",
+					  "Owner" : "AWS",
+					  "Provider" : "CodeDeploy",
+					  "Version" : "1"
+					},
+				  "Configuration" : {
+					  "ApplicationName": {"Ref": "ADCodeDeployApp"},
+					  "DeploymentGroupName": {"Ref" : "ADDeploymentGroup"}					  
+					},
+				  "Name" : "DeployAction",
+				 
+				  "InputArtifacts" : [{"Name" : "AppSourceCode"}],
+				  "Region" : "us-east-2",
+				  "RoleArn" : "arn:aws:iam::659418003263:role/service-role/AWSCodePipelineServiceRole-us-east-2-ADCICDProject",
+				  "RunOrder" : 2
+				
+			  } ],
+			  "Name" : "DeployStage"
+			  }
+			  ],
+			  "Tags" : [ 
+			  {
+				  "Key" : "Name",
+				  "Value" : "ADProject1CodePipeline"
+				}
+			  
+			  ]
+			}
+		}
+    }
+}

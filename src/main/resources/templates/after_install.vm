@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# This script is executed after the source is copied to the instances
+cd /usr/iconizer/$Projectname
+sudo chmod 700 mvnw
+sudo ./mvnw package -Pprod verify jib:dockerBuild
+
+

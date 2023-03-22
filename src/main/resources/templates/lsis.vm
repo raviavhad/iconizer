@@ -1,0 +1,169 @@
+application {
+      config {
+        baseName  $GatewayName,	
+        applicationType gateway,
+		packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        databaseType sql,
+		devDatabaseType postgresql,			
+		prodDatabaseType postgresql,
+        cacheProvider hazelcast,
+        buildTool maven,
+		clientFramework angularX,
+        testFrameworks [gatling, cucumber, protractor],
+        serverPort $GatewayPort
+      }
+      entities *
+    }
+    application {
+    config {
+        baseName  $Gateway2Name,	
+        applicationType gateway,
+		packageName $PackageName,
+         serviceDiscoveryType eureka,
+        authenticationType jwt,
+        databaseType sql,
+		devDatabaseType postgresql,			
+		prodDatabaseType postgresql,
+        cacheProvider hazelcast,
+        buildTool maven,
+		clientFramework angularX,
+        testFrameworks [gatling, cucumber, protractor],
+        serverPort $Gateway2Port
+      }
+      entities *
+    }
+
+    application {
+      config {
+        baseName $MSApp1,
+        applicationType microservice,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType postgresql,
+        buildTool maven,
+        serverPort $MSApp1Port
+      }
+      entities BusRoute, BusEvents,StudentEvents,Student,ActivityLog ,AbsenceRequest,PickupRequest
+    }
+	
+	 application {
+      config {
+        baseName $MSApp2,
+        applicationType microservice,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType postgresql,
+        buildTool maven,
+        serverPort $MSApp2Port
+      }
+      entities Parent
+    }
+
+
+enum StudentStatus {
+    ACTIVE, INACTIVE
+}
+
+entity Student {
+	name	String, 
+	dateOfBirth	ZonedDateTime, 
+	studentDivision String,
+	classTeacher String,
+	address String,
+	status StudentStatus,
+	parentMobileNumber String,
+	parentEmail String,
+	busStop String
+}
+
+
+enum StudentEventStatus {
+    PLANNED, INPROGRESS, COMPLETED
+}
+
+entity StudentEvents{
+	eventType String,
+	eventDate Instant,
+	eventStatus StudentEventStatus
+}
+
+entity Parent {
+	name String
+	dateOfBirth	Instant,
+	parentMobileNumber String,
+	parentEmail String,
+	approvalStatus Boolean,
+	studentId String
+}
+
+entity ActivityLog {
+	activityType	String, 
+	activityDate Instant, 
+	faculty String,
+	images Blob,
+	comment String
+}
+
+entity AbsenceRequest {
+	absenceDate	ZonedDateTime, 
+	reason String,
+	approvalStatus Boolean
+}
+
+entity PickupRequest {
+	pickupDate	ZonedDateTime, 
+	pickupTime Instant, 
+	reason String,
+	approvalStatus Boolean
+}
+
+
+
+enum BusRouteStatus {
+    ACTIVE, INACTIVE
+}
+
+entity BusRoute{
+	routeName String,
+	driver String,
+	monitor String,
+	deviceId String,
+	routeState String,
+	status BusRouteStatus
+}
+
+enum BusRouteEventStatus {
+    PLANNED, INPROGRESS, COMPLETED
+}
+
+entity BusEvents{
+	eventType String,
+	eventDate Instant,
+	eventStatus BusRouteEventStatus
+}
+
+relationship OneToMany {
+	BusRoute to BusEvents,
+	Student to StudentEvents,
+}
+
+relationship OneToOne {
+	PickupRequest to Student,
+	AbsenceRequest to Student,
+	Student to BusRoute	
+}
+
+// Set pagination options
+paginate Student,Parent, BusRoute,BusEvents, StudentEvents,ActivityLog,PickupRequest,AbsenceRequest  with pagination
+
+
+microservice BusRoute, BusEvents,StudentEvents,Student,ActivityLog,AbsenceRequest,PickupRequest with $MSApp1
+microservice Parent with $MSApp2
+
+service * with serviceClass
+
+

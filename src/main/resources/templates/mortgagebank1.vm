@@ -1,0 +1,139 @@
+application {
+      config {
+        baseName $GatewayName,
+        applicationType gateway,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        devDatabaseType mysql,
+        prodDatabaseType mysql,
+        cacheProvider hazelcast,
+        buildTool maven,
+		clientFramework angularX,
+        testFrameworks [protractor],
+        serverPort $GatewayPort
+      }
+    entities * 
+	}
+
+    application {
+      config {
+        baseName $MSApp1,
+        applicationType microservice,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        buildTool maven,
+        serverPort $MSApp1Port
+      }
+      entities Borrower, CoBorrower
+    }
+	
+	 application {
+      config {
+        baseName $MSApp2,
+        applicationType microservice,
+        packageName $PackageName,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        buildTool maven,
+        serverPort $MSApp2Port
+      }
+      entities DocumentList,LoanDetails, PropertyDetails 
+    }
+
+   
+    
+      /* Entities for IL BANK Gateway */
+    /*entity LoanApplication {
+        borrower Applicant,
+        coborrower Applicant
+    }*/
+    
+    entity Borrower {
+    	name String,
+    	dateOfBirth Instant,
+    	emailAddress String,
+    	maritalStatus MaritalStatus,
+    	socialSecurity String,
+    	phone Double,
+    	presentAddress String   	    
+    }
+    
+    entity CoBorrower {
+    	name String,
+    	dateOfBirth Instant,
+    	emailAddress String,
+    	maritalStatus MaritalStatus,
+    	socialSecurity String,
+    	phone Double,
+    	presentAddress String   	    
+    }
+    
+    enum MaritalStatus {
+        Married, Unmarried
+    }
+    
+    entity LoanDetails {
+    	loanType LoanType,
+    	correspondentLenderCaseNumber String,
+    	mortgageVA Boolean,
+    	mortgageConventional Boolean,
+    	mortgageOthers Boolean,    	
+    	appliedForFHA Boolean,
+    	appliedForUSDA Boolean,
+    	loanAmount Double,
+    	interestRate Double,
+    	numberOfMonths Integer,
+    	amortizationTypeFixed Boolean,
+    	amortizationTypeGPM Boolean,
+    	amortizationTypeOthers Boolean
+ 	    
+    }
+    
+    enum LoanType {
+        Mortgage, FixedRateMortgage,  AdjustableRateMortgage,  CombinationMortgages
+    }
+	
+  
+  	entity PropertyDetails {
+    	address String,
+    	purposeOfLoanPurchase Boolean,
+    	purposeOfLoanConstruction Boolean,
+    	purposeOfLoanRefinance Boolean,
+    	propertyPrimaryResidence Boolean,
+    	propertySecondaryResidence Boolean,
+    	propertyInvestment Boolean
+    
+    }
+    
+    entity DocumentList {
+    	applicationForm Boolean,
+    	uniformUnderwritingTransmittalSummary Boolean,
+    	manualUnderwriting Boolean,
+    	loanEstimate Boolean,
+    	closingDisclosure Boolean,
+    	uniformResidentialAppraisalReport Boolean,
+    	duUnderwritingFindingsConventional Boolean,
+    	duUnderwritingFindingsFHA Boolean,
+    	lpUnderwritingFindings Boolean,
+    	creditReport Boolean,
+    	demographicInformationAddendum Boolean,
+    	fannieSSR Boolean,
+    	freddleSSR Boolean,
+    	floodCertificate Boolean,
+    	firstPaymentLetter Boolean,
+    	note Boolean,
+    	noticeOfRightToCancel Boolean,    
+    	securityInstrument Boolean,    
+    	titleReport Boolean,    	 	
+    	attachment Blob   	
+    
+    }
+  
+    service Borrower, CoBorrower,DocumentList,LoanDetails, PropertyDetails with serviceClass
+    paginate Borrower, CoBorrower,DocumentList,LoanDetails, PropertyDetails with pagination
+	microservice Borrower, CoBorrower with $MSApp1
+	microservice DocumentList,LoanDetails, PropertyDetails with $MSApp2

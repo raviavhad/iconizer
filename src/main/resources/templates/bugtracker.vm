@@ -1,0 +1,81 @@
+application {
+      config {
+        baseName $ProjectName,
+        applicationType monolith,
+        packageName com.iconizer.ilsbank,
+        serviceDiscoveryType eureka,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        cacheProvider hazelcast,
+        buildTool maven,
+		clientFramework angularX,
+        testFrameworks [protractor]
+      }
+	  
+	  entities *
+}
+
+entity Project {
+  name String
+}
+
+entity Label {
+  label String required minlength(3)
+}
+
+entity Ticket {
+  title String required
+  description String
+  dueDate LocalDate
+  date ZonedDateTime
+  status Status
+  type Type
+  priority Priority
+}
+
+entity Attachment {
+  name String required minlength(3)
+  file Blob
+}
+
+
+
+
+
+enum Status {
+  OPEN,
+  WAITING_FOR_RESPONSE,
+  CLOSED,
+  DUPLICATE,
+  IN_PROGRESS,
+  REOPENED,
+  CANNOT_REPRODUCE,
+  SOLVED,
+  WONT_IMPLEMENT,
+  VERIFIED
+  
+}
+
+enum Type {
+  BUG,
+  FEATURE
+}
+
+enum Priority {
+  HIGHEST,
+  HIGHER,
+  HIGH,
+  NORMAL,
+  LOW,
+  LOWER,
+  LOWERST
+}
+
+entity Comment {
+  date ZonedDateTime
+  text String
+}
+
+
+service * with serviceClass
+paginate * with pagination
